@@ -30,13 +30,11 @@ class UsersRepository implements IUsersRepository {
 
     findById(id: string): User {
         const user = this.users.find((user) => user.id === id);
-        console.log(this.users);
         return user;
     }
 
     findByEmail(email: string): User {
         const user = this.users.find((user) => user.email === email);
-        console.log(this.users);
         return user;
     }
 
