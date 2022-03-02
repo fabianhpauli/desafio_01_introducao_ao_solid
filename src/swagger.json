@@ -1,0 +1,108 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "User manager",
+        "description": "This is a simple API for the user manager",
+        "version": "1.0.0",
+        "contact": {
+            "email": "fabianhenriquepauli@gmail.com"
+        }
+    },
+    "paths":{   
+        "/users": {
+            "post": {
+                "tags":["User"],
+                "summary": "Create a user",
+                "description": "This route create a new user",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties":{
+                                    "name":{
+                                        "type": "string"
+                                    },
+                                    "email":{
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example":{
+                                "name" : "some random name",
+                                "email" : "some random email"
+                            }
+                        }
+                    }
+                },
+                "response":{
+                    "201":{
+                        "description": ""
+                    },
+                    "400":{
+                        "description" : "Email already exists"
+                    }
+                }
+            },
+            "get":{
+                "tags" : ["User"],
+                "summary": "List all users",
+                "description": "This route list all users",
+                "parameters" : [{
+                    "name" : "user_id",
+                    "in" : "header",
+                    "required" : true,
+                    "description" : "Id of an admin user"
+                }],
+                "response" : {
+                    "201": {
+                        "description" : "Success"
+                    },
+                    "400" : {
+                        "description" : "Only admin users are allowed to list."
+                    }
+                }
+
+            }},
+        "/users/:user_id": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Get user profile",
+                "description": "Get specified user profile by id",
+                "parameters": [{ 
+                    "name": "user_id",
+                    "in": "params",
+                    "required": true,
+                    "description": "Id of the user requested the user"
+                }],
+                "responses": {
+                    "201": {
+                        "description": "List resquested user profile"
+                    },
+                    "404": {
+                        "description": "User does not exist"
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["User"],
+                "summary": "Turns user admin",
+                "description": "Turns specified user as admin through id",
+                "parameters": [{ 
+                    "name": "id",
+                    "in": "params",
+                    "required": true,
+                    "description": "Id of the user whom will become admin"
+                }],
+                "responses": {
+                    "201": {
+                        "description": "User has been turned an admin"
+                    },
+                    "404": {
+                        "description": "User does not exist"
+                    }
+                }
+            }
+        }
+    }
+}
